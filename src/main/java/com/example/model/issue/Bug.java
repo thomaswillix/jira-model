@@ -61,4 +61,19 @@ public class Bug extends Issue {
     public BigDecimal calculateEstimatedCost() {
         return super.calculateEstimatedCost().add(monetaryImpact);
     }
+
+    @Override
+    public String toString() {
+        return "Bug{" +
+                "title='" + getTitle() + '\'' +
+                ", description='" + getDescription() + '\'' +
+                ", estimatedHours=" + getEstimatedHours() +
+                ", progress=" + getProgress() +
+                ", status=" + getStatus().name() +
+                ", environment=" + environment +
+                ", businessImpact=" + businessImpact +
+                ", monetaryImpact=" + monetaryImpact +
+                ", reporter='" + reporter + '\'' +
+                '}';
+    }
 }

@@ -6,6 +6,7 @@ import lombok.Getter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.example.functions.Validation.*;
 
@@ -76,5 +77,19 @@ public class Project {
             );
         }
         return projectKey;
+    }
+
+    @Override
+    public String toString() {
+        String sprintsStr = sprints.stream()
+                .map(Sprint::toString)
+                .collect(Collectors.joining("\n"));
+
+        return "Project{" +
+                "projectKey='" + projectKey + '\'' +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", sprints=" + sprintsStr +
+                '}';
     }
 }

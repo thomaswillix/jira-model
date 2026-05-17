@@ -68,4 +68,15 @@ public abstract class Issue {
         if (this.progress == 100.0) return IssueStatus.DONE;
         return IssueStatus.IN_PROGRESS;
     }
+
+    @Override
+    public String toString() {
+        return "Issue{" +
+                "title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", estimatedHours=" + estimatedHours +
+                ", progress=" + progress +
+                ", status=" + status.name() +
+                '}';
+    }
 }

@@ -10,6 +10,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.example.functions.Validation.*;
 
@@ -118,5 +119,20 @@ public class Sprint{
         return issues.stream()
                 .map(Issue::calculateEstimatedCost)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
+    }
+
+    @Override
+    public String toString() {
+        String issuesStr = issues.stream()
+                .map(Issue::toString)
+                .collect(Collectors.joining("\n"));
+
+        return "Sprint{" +
+                "startDate=" + startDate.toString() +
+                ", endDate=" + endDate.toString() +
+                ", team=" + team.toString() +
+                ", description='" + description + '\'' +
+                ", issues=" + issuesStr +
+                '}';
     }
 }

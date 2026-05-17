@@ -14,4 +14,15 @@ public class Spike extends Issue {
     public BigDecimal calculateEstimatedCost() {
         return super.calculateEstimatedCost().add(SOFTWARE_INSTALLATION_COST);
     }
+
+    @Override
+    public String toString() {
+        return "Spike{" +
+                "title='" + getTitle() + '\'' +
+                ", description='" + getDescription() + '\'' +
+                ", estimatedHours=" + getEstimatedHours() +
+                ", progress=" + getProgress() +
+                ", status=" + getStatus().name() +
+                '}';
+    }
 }

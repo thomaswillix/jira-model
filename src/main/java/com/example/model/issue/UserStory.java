@@ -32,4 +32,16 @@ public class UserStory extends Issue {
     public BigDecimal calculateEstimatedCost() {
         return super.calculateEstimatedCost();
     }
+
+    @Override
+    public String toString() {
+        return "Bug{" +
+                "title='" + getTitle() + '\'' +
+                ", description='" + getDescription() + '\'' +
+                ", estimatedHours=" + getEstimatedHours() +
+                ", progress=" + getProgress() +
+                ", status=" + getStatus().name() +
+                ", complexityPoints=" + complexityPoints +
+                '}';
+    }
 }

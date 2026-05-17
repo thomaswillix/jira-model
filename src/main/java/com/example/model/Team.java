@@ -5,6 +5,7 @@ import lombok.Getter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.example.functions.Validation.*;
 
@@ -46,5 +47,17 @@ public class Team{
     private void requireValidUsersList(List<User> users){
         requireNonNull(users, "Users list");
         if (users.isEmpty()) throw new IllegalArgumentException("Users list can't be empty.");
+    }
+
+    @Override
+    public String toString() {
+        String usersStr = users.stream()
+                .map(User::toString)
+                .collect(Collectors.joining("\n"));
+
+        return "Team{" +
+                "teamName='" + teamName + '\'' +
+                ", users=" + usersStr +
+                '}';
     }
 }
