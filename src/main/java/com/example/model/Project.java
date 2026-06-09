@@ -1,6 +1,5 @@
 package com.example.model;
 
-import com.example.functions.DateHelper;
 import lombok.Getter;
 
 import java.util.ArrayList;
@@ -56,11 +55,10 @@ public class Project {
             throw new IllegalArgumentException("Sprint is not linked to this project.");
     }
 
-    private boolean isSprintOverlapping(Sprint sprint) {
-        return sprints.stream().anyMatch(s ->
-                DateHelper.isBetween(sprint.getStartDate(), s.getStartDate(), s.getEndDate()) ||
-                DateHelper.isBetween(sprint.getEndDate(), s.getStartDate(), s.getEndDate()) ||
-                DateHelper.isContainedInRange(sprint.getStartDate(), sprint.getEndDate(), s.getStartDate(), s.getEndDate())
+    private boolean isSprintOverlapping(Sprint newSprint) {
+        return sprints.stream().anyMatch(existingSprint ->
+                !newSprint.getStartDate().isAfter(existingSprint.getEndDate()) &&
+                !newSprint.getEndDate().isBefore(existingSprint.getStartDate())
         );
     }
 

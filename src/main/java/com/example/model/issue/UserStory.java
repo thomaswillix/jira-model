@@ -35,7 +35,7 @@ public class UserStory extends Issue {
 
     @Override
     public String toString() {
-        return "Bug{" +
+        return "UserStory{" +
                 "title='" + getTitle() + '\'' +
                 ", description='" + getDescription() + '\'' +
                 ", estimatedHours=" + getEstimatedHours() +
