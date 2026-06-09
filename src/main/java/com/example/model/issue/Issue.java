@@ -12,7 +12,7 @@ public abstract class Issue {
     private String title;
     private String description;
     private Integer estimatedHours;
-    private Double progress;
+    private double progress;
     private IssueStatus status;
 
     protected final static BigDecimal COST_PER_HOUR = BigDecimal.valueOf(10);

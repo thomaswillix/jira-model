@@ -79,9 +79,8 @@ public class Sprint{
     }
 
     private void requireValidDates(LocalDate startDate, LocalDate endDate) {
-        if (startDate == null || endDate == null) {
-            throw new IllegalArgumentException("Dates cannot be null");
-        }
+        requireNonNull(startDate, "Start date");
+        requireNonNull(endDate, "End date");
         if (!startDate.isBefore(endDate))
             throw new IllegalArgumentException("Start date must be before end date");
     }
@@ -106,12 +105,9 @@ public class Sprint{
 
     public Double calculateProgressPercentage(){
         if (issues.isEmpty()) return 0.0;
-        int completedHours = issues.stream()
-                .filter(issue -> issue.getStatus() == IssueStatus.DONE)
-                .mapToInt(Issue::getEstimatedHours)
-                .sum();
-
-        return (double) completedHours / calculateTotalEstimatedHours() * 100;
+        return issues.stream()
+                .mapToDouble(issue -> issue.getProgress() * issue.getEstimatedHours())
+                .sum() / calculateTotalEstimatedHours();
     }
 
     public BigDecimal calculateTotalEstimatedCost() {

@@ -54,7 +54,7 @@ public class ProjectService {
 
     public Optional<Sprint> getLongestSprint(Project project){
         requireNonNull(project, "Project");
-        return project.getSprints().stream().max(Comparator.comparing(Sprint::calculateTotalEstimatedHours));
+        return project.getSprints().stream().max(Comparator.comparing(Sprint::calculateSprintDurationInDays));
     }
 
     public List<Sprint> getSprintsByUser(Project project, User user){

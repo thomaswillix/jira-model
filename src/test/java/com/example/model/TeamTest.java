@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+
 public class TeamTest {
     private final User dummyUser = new User("john_doe");
 
@@ -41,7 +42,7 @@ public class TeamTest {
         assertThrows(NullPointerException.class, () -> new Team(null, List.of(dummyUser)));
     }
 
-   @Test
+    @Test
     public void shouldThrowExceptionWhenUsersListIsNull() {
         assertThrows(NullPointerException.class, () -> new Team("Alpha Team", null));
     }

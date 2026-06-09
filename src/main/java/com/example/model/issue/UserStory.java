@@ -29,11 +29,6 @@ public class UserStory extends Issue {
     }
 
     @Override
-    public BigDecimal calculateEstimatedCost() {
-        return super.calculateEstimatedCost();
-    }
-
-    @Override
     public String toString() {
         return "UserStory{" +
                 "title='" + getTitle() + '\'' +

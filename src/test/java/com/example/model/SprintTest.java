@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+
 class SprintTest {
 
     private static final LocalDate START = LocalDate.of(2025, 1, 1);
@@ -54,18 +55,18 @@ class SprintTest {
 
     @Test
     public void shouldThrowExceptionWhenStartDateIsNull() {
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () ->
+        NullPointerException exception = assertThrows(NullPointerException.class, () ->
                 new Sprint(null, END, TEAM, "Sprint 1", new ArrayList<>())
         );
-        assertEquals("Dates cannot be null", exception.getMessage());
+        assertEquals("Start date can't be null.", exception.getMessage());
     }
 
     @Test
     public void shouldThrowExceptionWhenEndDateIsNull() {
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () ->
+        NullPointerException exception = assertThrows(NullPointerException.class, () ->
                 new Sprint(START, null, TEAM, "Sprint 1", new ArrayList<>())
         );
-        assertEquals("Dates cannot be null", exception.getMessage());
+        assertEquals("End date can't be null.", exception.getMessage());
     }
 
     @Test
@@ -153,10 +154,10 @@ class SprintTest {
 
     @Test
     public void shouldThrowExceptionWhenSettingNullStartDate() {
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () ->
+        NullPointerException exception = assertThrows(NullPointerException.class, () ->
                 emptySprint().setStartDate(null)
         );
-        assertEquals("Dates cannot be null", exception.getMessage());
+        assertEquals("Start date can't be null.", exception.getMessage());
     }
 
     @Test
@@ -183,10 +184,10 @@ class SprintTest {
 
     @Test
     public void shouldThrowExceptionWhenSettingNullEndDate() {
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () ->
+        NullPointerException exception = assertThrows(NullPointerException.class, () ->
                 emptySprint().setEndDate(null)
         );
-        assertEquals("Dates cannot be null", exception.getMessage());
+        assertEquals("End date can't be null.", exception.getMessage());
     }
 
     @Test
@@ -437,7 +438,6 @@ class SprintTest {
 
     @Test
     public void shouldWeightProgressByEstimatedHours() {
-        // La issue completada pesa más en horas, el % debe reflejarlo
         IssueStub done = issue(6);
         IssueStub pending = issue(2);
         done.setProgress(100.0);
@@ -446,6 +446,32 @@ class SprintTest {
         );
 
         assertEquals(75.0, sprint.calculateProgressPercentage());
+    }
+
+    @Test
+    public void shouldCalculateProgressPercentageWithPartialProgress() {
+        IssueStub issue1 = issue(8);
+        IssueStub issue2 = issue(8);
+        issue1.setProgress(50.0);
+        issue2.setProgress(50.0);
+        Sprint sprint = new Sprint(START, END, TEAM, "Sprint 1",
+                new ArrayList<>(List.of(issue1, issue2))
+        );
+
+        assertEquals(50.0, sprint.calculateProgressPercentage());
+    }
+
+    @Test
+    public void shouldWeightPartialProgressByEstimatedHours() {
+        IssueStub heavyIssue = issue(8);
+        IssueStub lightIssue = issue(2);
+        heavyIssue.setProgress(50.0);
+        Sprint sprint = new Sprint(START, END, TEAM, "Sprint 1",
+                new ArrayList<>(List.of(heavyIssue, lightIssue))
+        );
+
+        // (8 * 0.5 + 2 * 0.0) / 10 = 0.4
+        assertEquals(40.0, sprint.calculateProgressPercentage());
     }
 
     // -------------------------------------------------------------------------
