@@ -2,8 +2,6 @@ package com.example.model.issue;
 
 import lombok.Getter;
 
-import java.math.BigDecimal;
-
 import static com.example.functions.Validation.requireNonNull;
 
 @Getter

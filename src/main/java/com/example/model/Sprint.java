@@ -1,7 +1,6 @@
 package com.example.model;
 
 import com.example.model.issue.Issue;
-import com.example.model.issue.IssueStatus;
 import lombok.Getter;
 
 import java.math.BigDecimal;
